@@ -5,7 +5,19 @@ headerTag.addEventListener("numberChanged", function (e) {
   headerTag.textContent = e.detail.number;
   headerTag.style.color = e.detail.textColor;
 });
-
+document.querySelector("#button1").addEventListener("click", () => {
+  const event = new CustomEvent("numberChanged", {
+    detail: {
+      number: document.querySelector("#numberInput").value,
+      textColor: document.querySelector("#textInput1").value,
+    },
+  });
+  document.addEventListener("numberChanged", function (e) {
+    document.querySelector("#number").innerHTML = e.detail.number;
+    document.querySelector("#number").style.color = e.detail.textColor;
+  });
+  document.dispatchEvent(event);
+});
 function changeNumber(n, c) {
   const event = new CustomEvent("numberChanged", {
     detail: {
@@ -32,6 +44,4 @@ carName = "Toyota";
         "You dont have a driver license";
     }
   });
-
-  // Self invoked anonymous function
 })();
